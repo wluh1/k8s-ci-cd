@@ -2,9 +2,16 @@ kind: pipeline
 type: kubernetes
 name: default
 
+workspace:
+  path: /podtato-head/podtato-head-microservices
+
 steps:
-  - name: build
-    image: golang:1.12
-    commands:
-      - go build
-      - go test
+  - name: build-entry
+    image: plugins/docker
+    settings:
+      repo: europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head/entry
+      dockerfile: ./cmd/entry/Dockerfile
+      registry: europe-west1-docker.pkg.dev
+      tags:
+        - latest
+        - "1.0"
