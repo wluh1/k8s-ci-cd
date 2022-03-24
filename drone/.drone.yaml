@@ -20,11 +20,12 @@ name: default
 steps:
   - name: docker-build
     image: google/cloud-sdk
-    user: root
+    user: 0
     volumes:
       - name: dockersock
         path: /var/run
     commands:
       - gcloud auth configure-docker
       - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build.sh
       - make push-microservices-images
