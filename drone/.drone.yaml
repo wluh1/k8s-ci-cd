@@ -20,6 +20,7 @@ name: default
 steps:
   - name: docker-build
     image: google/cloud-sdk
+    user: 0
     volumes:
       - name: dockersock
         path: /var/run
