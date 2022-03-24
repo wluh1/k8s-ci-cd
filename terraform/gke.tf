@@ -55,6 +55,7 @@ resource "google_container_node_pool" "primary_nodes" {
     metadata = {
       disable-legacy-endpoints = "true"
     }
+    image_type = "ubuntu"
   }
 }
 

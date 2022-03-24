@@ -2,9 +2,6 @@ kind: pipeline
 type: kubernetes
 name: default
 
-# workspace:
-#   path: /podtato-head
-
 # steps:
 #   - name: build-entry
 #     image: plugins/docker
