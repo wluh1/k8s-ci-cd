@@ -30,22 +30,22 @@ if [[ -n "${PUSH_TO_REGISTRY}" ]]; then
 fi
 
 
-parts=($(find ${app_dir}/pkg/assets/images/* -type d -printf '%f\n'))
+# parts=($(find ${app_dir}/pkg/assets/images/* -type d -printf '%f\n'))
 
-for part in "${parts[@]}"; do
-    container_name=${registry}/${part}
+# for part in "${parts[@]}"; do
+#     container_name=${registry}/${part}
 
-    echo ""
-    echo "INFO: building container for ${part} as ${container_name}"
-    docker build ${app_dir} \
-        --tag "${container_name}:latest" \
-        --tag "${container_name}:${version}" \
-        --build-arg "PART=${part}" \
-        --file ${app_dir}/cmd/parts/Dockerfile
+#     echo ""
+#     echo "INFO: building container for ${part} as ${container_name}"
+#     docker build ${app_dir} \
+#         --tag "${container_name}:latest" \
+#         --tag "${container_name}:${version}" \
+#         --build-arg "PART=${part}" \
+#         --file ${app_dir}/cmd/parts/Dockerfile
 
-    if [[ -n "${PUSH_TO_REGISTRY}" ]]; then
-        docker push "${container_name}:latest"
-        docker push "${container_name}:${version}"
-    fi
-done
-### /end build et al parts containers
+#     if [[ -n "${PUSH_TO_REGISTRY}" ]]; then
+#         docker push "${container_name}:latest"
+#         docker push "${container_name}:${version}"
+#     fi
+# done
+# ### /end build et al parts containers
