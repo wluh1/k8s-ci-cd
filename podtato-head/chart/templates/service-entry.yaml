@@ -1,6 +1,7 @@
 {{ $componentName := "entry" }}
 {{ $serviceType := .Values.entry.serviceType }}
 {{ $servicePort := .Values.entry.servicePort }}
+{{ $loadbalancerIP := .Values.entry.loadbalancerIP }}
 ---
 apiVersion: v1
 kind: Service
@@ -11,6 +12,7 @@ metadata:
     app.kubernetes.io/component: {{ printf "%s-%s" (include "podtato-head.fullname" .) $componentName }}
 spec:
   type: {{ default "ClusterIP" $serviceType }}
+  loadBalancerIP: {{ default "" $loadbalancerIP }}
   ports:
     - port: {{ $servicePort }}
       targetPort: http

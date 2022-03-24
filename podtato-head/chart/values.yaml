@@ -13,6 +13,7 @@ entry:
   repositoryBasename: entry
   tag: "1.0"
   serviceType: LoadBalancer
+  loadbalancerIP: 35.195.60.0
   servicePort: 9000
   env: []
   #   - name: PODTATO_PART_NUMBER
