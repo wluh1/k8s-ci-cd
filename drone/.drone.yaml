@@ -3,14 +3,14 @@ type: kubernetes
 name: default
 
 workspace:
-  path: /podtato-head/podtato-head-microservices
+  path: /podtato-head
 
 steps:
   - name: build-entry
     image: plugins/docker
     settings:
       repo: europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head/entry
-      dockerfile: ./cmd/entry/Dockerfile
+      dockerfile: ./podtato-head-microservices/cmd/entry/Dockerfile
       registry: europe-west1-docker.pkg.dev
       tags:
         - latest
