@@ -16,7 +16,7 @@ name: default
 
 steps:
   - name: docker-build
-    image: docker:dind
+    image: google/cloud-sdk
     volumes:
       - name: dockersock
         path: /var/run
