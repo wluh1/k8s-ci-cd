@@ -22,6 +22,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
+      - sleep 5
       - gcloud auth configure-docker
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build.sh
