@@ -15,20 +15,14 @@ name: default
 #         - "1.0"
 
 steps:
-  - name: docker-build
-    image: docker/dind
-    user: 0
-    privileged: true
+  - name: test
+    image: docker:dind
     volumes:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 30
-      - docker ps
-      # - gcloud auth configure-docker
-      # - cd podtato-head
-      # - chmod +x ./podtato-head-microservices/build/build.sh
-      # - make push-microservices-images
+      - sleep 5 # give docker enough time to start
+      - docker ps -a
 
 services:
   - name: docker
@@ -41,4 +35,31 @@ services:
 volumes:
   - name: dockersock
     temp: {}
-#
+# steps:
+#   - name: docker-build
+#     image: docker/dind
+#     user: 0
+#     privileged: true
+#     volumes:
+#       - name: dockersock
+#         path: /var/run
+#     commands:
+#       - sleep 30
+#       - docker ps
+#       # - gcloud auth configure-docker
+#       # - cd podtato-head
+#       # - chmod +x ./podtato-head-microservices/build/build.sh
+#       # - make push-microservices-images
+
+# services:
+#   - name: docker
+#     image: docker:dind
+#     privileged: true
+#     volumes:
+#       - name: dockersock
+#         path: /var/run
+
+# volumes:
+#   - name: dockersock
+#     temp: {}
+# #
