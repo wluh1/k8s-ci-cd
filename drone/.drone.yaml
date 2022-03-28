@@ -2,18 +2,6 @@ kind: pipeline
 type: kubernetes
 name: default
 
-# steps:
-#   - name: build-entry
-#     image: plugins/docker
-#     settings:
-#       repo: europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head/entry
-#       dockerfile: ./podtato-head/podtato-head-microservices/cmd/entry/Dockerfile
-#       context: ./podtato-head/podtato-head-microservices
-#       registry: europe-west1-docker.pkg.dev
-#       tags:
-#         - latest
-#         - "1.0"
-
 steps:
   - name: docker-build
     image: google/cloud-sdk
@@ -22,12 +10,18 @@ steps:
         path: /var/run
     commands:
       - sleep 5
-      - docker ps
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
-      # - gcloud auth configure-docker
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build.sh
       - make push-microservices-images
+
+  - name: deploy
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - gcloud container clusters get-credentials k8s-ci-cd-1-gke
 
 services:
   - name: docker
