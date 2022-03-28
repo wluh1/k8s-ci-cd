@@ -23,7 +23,8 @@ steps:
     commands:
       - sleep 5
       - docker ps
-      - gcloud auth configure-docker
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      # - gcloud auth configure-docker
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build.sh
       - make push-microservices-images
