@@ -16,7 +16,7 @@ steps:
   #     - make push-microservices-images
 
   - name: deploy
-    image: google/cloud-sdk
+    image: quay.io/evl.ms/gcloud-helm:338.0.0
     volumes:
       - name: dockersock
         path: /var/run
