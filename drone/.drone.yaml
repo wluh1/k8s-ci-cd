@@ -23,7 +23,7 @@ steps:
     commands:
       - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
       - cd podtato-head
-      - helm install podtato-head ./chart
+      - helm install podtato-head ./chart --namespace default
 
 services:
   - name: docker
