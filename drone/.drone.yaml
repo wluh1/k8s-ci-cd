@@ -23,10 +23,11 @@ steps:
         path: /var/run
     commands:
       - sleep 10
-      - gcloud auth configure-docker
-      - cd podtato-head
-      - chmod +x ./podtato-head-microservices/build/build.sh
-      - make push-microservices-images
+      - docker ps
+      # - gcloud auth configure-docker
+      # - cd podtato-head
+      # - chmod +x ./podtato-head-microservices/build/build.sh
+      # - make push-microservices-images
 
 volumes:
   - name: dockersock
