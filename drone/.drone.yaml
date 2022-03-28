@@ -21,7 +21,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - gcloud container clusters get-credentials k8s-ci-cd-1-gke
+      - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
 
 services:
   - name: docker
