@@ -3,17 +3,17 @@ type: kubernetes
 name: default
 
 steps:
-  # - name: docker-build
-  #   image: google/cloud-sdk
-  #   volumes:
-  #     - name: dockersock
-  #       path: /var/run
-  #   commands:
-  #     - sleep 5
-  #     - gcloud auth configure-docker europe-west1-docker.pkg.dev
-  #     - cd podtato-head
-  #     - chmod +x ./podtato-head-microservices/build/build.sh
-  #     - make push-microservices-images
+  - name: docker-build
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build.sh
+      - make push-microservices-images
 
   - name: deploy
     image: quay.io/evl.ms/gcloud-helm:338.0.0
