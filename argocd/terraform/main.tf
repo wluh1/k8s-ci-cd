@@ -40,3 +40,4 @@ resource "helm_release" "argocd" {
     value = "{--insecure}"
   }
 }
+# --basehref,/argo-cd, 

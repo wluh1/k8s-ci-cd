@@ -1,0 +1,76 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/gavinbunney/kubectl" {
+  version     = "1.13.1"
+  constraints = "1.13.1"
+  hashes = [
+    "h1:Kqo0t1R22DYLNsw8kFCBLPeV9zwns+86ijDnBUhJ+iw=",
+    "zh:212c030cb975e46e3a85a6850c16773974f4498042a45c73b883b25f6e05962d",
+    "zh:213d1be8a231b04fdc55fd027479dbf0ae5b7ab891804b64f464db771d091ecd",
+    "zh:45f37b5c43f85d79973d0b890f774531a65def7f8436e435a4e259198f1c62de",
+    "zh:5a362871827f8582d6129b9c8b7d73c5e4e181155cef4cba1fe0408880db52db",
+    "zh:78986fdb4c41ac35815e4d41832d24b41b0aac046c046f21db92205115d16bae",
+    "zh:a6d07a9f066c386f44d61e7e2e83133663e3049f5c6b153fa5601b85cbb788b1",
+    "zh:bb307e902d2401df42205d57e36a2e094765b87b12f99a24ec2af411bef3c0fa",
+    "zh:dc3281f9fab38b8daf76d5f0073d2e323574f03d4cef338d6a363380f7f7bb59",
+    "zh:eb30e7fef17e7630858070d23a59375ba3a87fceaffde1c722338b1ad88df568",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/google" {
+  version     = "3.52.0"
+  constraints = "3.52.0"
+  hashes = [
+    "h1:Bigp56EtF+7efLXY1BSi+WLKHcpxMpmFYm/LjnQH8d8=",
+    "zh:3eb1d20994faed4c5087502d42b72f8d3d41591dbf7cd7b9e692d8d142a88890",
+    "zh:60443b4ddb3cbeba4adf357512917751a11d7058d4d1bb0244364126a44693c0",
+    "zh:81dc9796db1418c934c4e16ff9f8dbe263d18fecd15bd2a5a79d2cb9a599694f",
+    "zh:8c06d94c67ed9014ed083972577e567fdb59547c6f813f49decdc3d4948aa4f3",
+    "zh:8fd3f6127ba3749527eed2316bac478ab4ef40566e570c4532970cd79f1b9a64",
+    "zh:8ff736289397d1b8181c00ef84c6a40440ab7dd95638152dc6b58f02f1c80384",
+    "zh:ce1127a8b9f037d5f980070fdaa0d3976333687216194b922b2e747b9eee2cab",
+    "zh:cea4c432c9257575d72ebee2228da9cdf4831358ff844772ce3454d60a19dc7a",
+    "zh:f2407ae95bcc30660930b2f317d2aa251af7961ed7562f817b34b5c25223c2e3",
+    "zh:f3603917de36faa1e45358605c80db722bb920f8b91a7425a6358b6406740397",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/helm" {
+  version = "2.5.0"
+  hashes = [
+    "h1:70kdfRABYIo83oSE6Ydpi9pimzQVLtn5bnJ/lnvFLmk=",
+    "zh:16b4dfcaf5bdef9fc10926cef8c9992a1bf3de1c99fb679923421e3b5a9d4307",
+    "zh:1e1456943bea1c9f5b1671d55796c65fbe8ac0980c3a79e4fdcaf5fa320e4c8f",
+    "zh:302b57485a8fe540dd55e2306680e51db54a83a630830f9a106c1ac38c1f6a91",
+    "zh:5ea2eafa735f7cd696e8f118271aedab68a46eb1f6f7f00126338fa302a0cc0b",
+    "zh:66bf1709bb20b24bd26b476081207e69500d1a6bc50829b9033a785050d3a8bd",
+    "zh:7166a85433037029caf04246ccff3d455e3a58868a58c29611e3b275e272299a",
+    "zh:809ddc3759c27ca76e5be8cfab45cecea04d0ae49172bbe326e7740bfbcd5aeb",
+    "zh:9335805d3eed0789c1718fd55d91ffe24681536302d1cd2d07ccf649828406bd",
+    "zh:d7c069fe721bc49a3a19f7c54c7498f492322891a7ce7b9adc6b57edae694933",
+    "zh:d9f5514ecf0cf811716b478c677526e18ac2d2cb5f6bec884096e970b2865798",
+    "zh:e899083259416874d75b58813446d0aa045efd9047d324b10810490dd72faa24",
+    "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/kubernetes" {
+  version     = "2.9.0"
+  constraints = ">= 2.0.1"
+  hashes = [
+    "h1:tlVa13hydZH+bs1e9TTLNDqtzfXW2HgrQtDVAuZvaSg=",
+    "zh:114113e9cd0489d2db8374f3352cc9b29667a42462f922eb9c891c6daf1c38fa",
+    "zh:31dcf16083142f2978fc933cead038e671798053fb1fd3c18a2331afb7abe264",
+    "zh:44743af5da8cfb9937b0831fdfbadd949a106440420f5f7373734181121f1b98",
+    "zh:63eeacd73e71bcdeb796abde45dac56331ccb5ee39d97138a4a4ae755ef314a7",
+    "zh:645ae4f95508a6a878a21fc8031a09b7c1f95fb87b7d97dfce38d572d4bd5c5c",
+    "zh:782f0dd9fda68406f1783d3b4f25c4077dd4a6a87efe7dcaae68038c2dd57e33",
+    "zh:87dd58eacd557106c9d77fca4211e2c5fa3416c56c8dccad2b30f8d627ffe413",
+    "zh:b61582b7bfdb19d9155b535fe54b2ce5425934e8f5f65389e3cfe75577be4f07",
+    "zh:bf97f54f94d99461a1fc8199ece3300e59b896d6aeaea8395beb4d544557b1cc",
+    "zh:c536669089d75a9ea2582feae0204bd5989622168d99cd71822067be40223105",
+    "zh:e596310a343780d4ef7ad08e05bdbcb91dc41a11ed08b58ad7590903d9d9982f",
+    "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+  ]
+}
