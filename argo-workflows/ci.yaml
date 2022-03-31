@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: k8s-ci
+
+spec:
+  entrypoint: ci-start
+  arguments:
+    parameters:
+      - name: repo
+        value: https://github.com/wluh1/k8s-ci-cd.git
+      - name: revision
+        value: "HEAD"
+
+  templates:
+    - name: ci-start
+      steps:
+        - - name: checkout
+            template: checkout
+
+    - name: checkout
+      inputs:
+        artifacts:
+          - name: source
+            path: /src
+            git:
+              repo: "{{workflow.parameters.repo}}"
+              revision: "{{workflow.parameters.revision}}"
+      # outputs:
+      # artifacts:
+      #   - name: source
+      #     path: /src
+      container:
+        image: golang:1.9.2
+        command: ["/bin/sh", "-c"]
+        args: ["cd /src && git status && ls -l"]

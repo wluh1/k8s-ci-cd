@@ -13,3 +13,5 @@ cd base
 echo ""
 echo "Applying nignx-ingress and chaos-mesh..."
 terraform apply -auto-approve
+
+cd ../../

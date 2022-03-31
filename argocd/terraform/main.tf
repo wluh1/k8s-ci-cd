@@ -12,13 +12,15 @@ resource "kubernetes_ingress" "argocd-ingress" {
     name      = "argocd-ingress"
     annotations = {
       "kubernetes.io/ingress.class" = "nginx"
+      "nginx.ingress.kubernetes.io/rewrite-target" : "/argo-cd/$2"
     }
   }
   spec {
     rule {
       http {
         path {
-          path = "/"
+          path = "/argo-cd(/|$)(.*)"
+
           backend {
             service_name = "argocd-server"
             service_port = 80
@@ -37,7 +39,7 @@ resource "helm_release" "argocd" {
 
   set {
     name  = "server.extraArgs"
-    value = "{--insecure}"
+    value = "{--insecure,--basehref,/argo-cd,--rootpath,/argo-cd}"
   }
 }
-# --basehref,/argo-cd, 
+# , 
