@@ -11,26 +11,67 @@ spec:
         value: https://github.com/wluh1/k8s-ci-cd.git
       - name: revision
         value: "HEAD"
+  volumeClaimTemplates:
+    - metadata:
+        name: workdir
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 
   templates:
     - name: ci-start
       steps:
         - - name: checkout
             template: checkout
+        - - name: build
+            template: build
 
     - name: checkout
       inputs:
         artifacts:
           - name: source
-            path: /src
+            path: /workdir/src
             git:
               repo: "{{workflow.parameters.repo}}"
               revision: "{{workflow.parameters.revision}}"
-      # outputs:
-      # artifacts:
-      #   - name: source
-      #     path: /src
       container:
         image: golang:1.9.2
         command: ["/bin/sh", "-c"]
-        args: ["cd /src && git status && ls -l"]
+        args: ["cd /workdir/src && git status && ls -l"]
+        volumeMounts:
+          - name: workdir
+            mountPath: /workdir
+
+    - name: build
+      container:
+        image: google/cloud-sdk
+        command: ["/bin/sh", "-c"]
+        args: [
+            "
+            cd /workdir/src/podtato-head/;
+            until docker ps; do sleep 3; done;
+            gcloud auth configure-docker europe-west1-docker.pkg.dev;
+            chmod +x ./podtato-head-microservices/build/build.sh;
+            export IMAGE_NAME=entry
+            make push-one;
+            ",
+          ]
+        env:
+          - name: DOCKER_HOST
+            value: 127.0.0.1
+        volumeMounts:
+          - name: workdir
+            mountPath: /workdir
+
+      sidecars:
+        - name: dind
+          image: docker:19.03.13-dind
+          command: [dockerd-entrypoint.sh]
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+          securityContext:
+            privileged: true
+          mirrorVolumeMounts: true

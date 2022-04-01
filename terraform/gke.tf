@@ -59,4 +59,3 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-# gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output -raw zone)

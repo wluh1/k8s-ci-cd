@@ -1,5 +1,9 @@
 ### podtato-head-microservices
 
+app_dir=./podtato-head-microservices
+registry=europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head
+
+
 build-microservices-images:
 	podtato-head-microservices/build/build.sh
 
@@ -14,3 +18,9 @@ deploy:
 
 uninstall:
 	helm uninstall podtato-head
+
+build-one:
+	podtato-head-microservices/build/build-one.sh
+
+push-one:
+	PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-one.sh
