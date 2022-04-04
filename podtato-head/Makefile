@@ -27,3 +27,13 @@ push-entry:
 
 push-body:
 	IMAGE_NAME=body PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
+push-hat:
+	IMAGE_NAME=hat PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
+push-left-arm:
+	IMAGE_NAME=left-arm PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
+push-left-leg:
+	IMAGE_NAME=left-leg PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
+push-right-arm:
+	IMAGE_NAME=right-arm PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
+push-right-leg:
+	IMAGE_NAME=right-leg PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
