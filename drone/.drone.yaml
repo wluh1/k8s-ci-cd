@@ -3,7 +3,7 @@ type: kubernetes
 name: default
 
 steps:
-  - name: docker-build
+  - name: build-entry
     image: google/cloud-sdk
     volumes:
       - name: dockersock
@@ -12,8 +12,80 @@ steps:
       - sleep 5
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
-      - chmod +x ./podtato-head-microservices/build/build.sh
-      - make push-microservices-images
+      - chmod +x ./podtato-head-microservices/build/build-entry.sh
+      - make push-entry
+
+  - name: build-body
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-body
+
+  - name: build-hat
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-hat
+
+  - name: build-left-arm
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-left-arm
+
+  - name: build-left-leg
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-left-leg
+
+  - name: build-right-arm
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-right-arm
+
+  - name: build-right-leg
+    image: google/cloud-sdk
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - sleep 5
+      - gcloud auth configure-docker europe-west1-docker.pkg.dev
+      - cd podtato-head
+      - chmod +x ./podtato-head-microservices/build/build-part.sh
+      - make push-right-leg
 
   - name: deploy
     image: quay.io/evl.ms/gcloud-helm:338.0.0
@@ -24,6 +96,14 @@ steps:
       - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
       - cd podtato-head
       - helm upgrade --install podtato-head ./chart --namespace default
+    depends_on:
+      - build-entry
+      - build-body
+      - build-hat
+      - build-left-arm
+      - build-left-leg
+      - build-right-arm
+      - build-right-leg
 
 services:
   - name: docker
