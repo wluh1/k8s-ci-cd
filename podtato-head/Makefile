@@ -22,5 +22,8 @@ uninstall:
 build-one:
 	podtato-head-microservices/build/build-one.sh
 
-push-one:
-	PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-one.sh
+push-entry:
+	IMAGE_NAME=entry PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-entry.sh
+
+push-body:
+	IMAGE_NAME=body PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-part.sh
