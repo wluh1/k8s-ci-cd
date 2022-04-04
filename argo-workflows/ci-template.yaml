@@ -1,7 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  generateName: k8s-ci
+  name: k8s-ci-template
+  namespace: argo
 
 spec:
   retryStrategy:

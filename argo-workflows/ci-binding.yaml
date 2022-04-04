@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowEventBinding
+metadata:
+  name: event-consumer
+  namespace: argo
+spec:
+  event:
+    # metadata header name must be lowercase to match in selector
+    selector: discriminator == "ci"
+  submit:
+    workflowTemplateRef:
+      name: k8s-ci-template
