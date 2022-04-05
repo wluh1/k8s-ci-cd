@@ -5,6 +5,7 @@ metadata:
   namespace: argo
 
 spec:
+  serviceAccountName: argo-executor
   retryStrategy:
     retryPolicy: OnError
     limit: 1

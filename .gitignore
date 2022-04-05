@@ -24,3 +24,6 @@ terraform.tfstate.backup
 
 # DRONE
 drone-secret.yaml
+
+# ARGO WORKFLOWS
+github-secret.yaml
