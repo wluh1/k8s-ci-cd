@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	defaultServiceVersion string = "v0.1.5"
+	defaultServiceVersion string = "v0.1.6"
 	defaultPartNumber     string = "01"
 )
 

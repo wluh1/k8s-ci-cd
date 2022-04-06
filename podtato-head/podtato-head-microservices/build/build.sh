@@ -12,7 +12,7 @@ fi
 
 # set version/tag for this build
 # source ${this_dir}/version.sh
-version=${VERSION:-"1.2"}
+version=${VERSION:-"1.3"}
 echo "INFO: will use version/tag: ${version}"
 
 registry=europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head
