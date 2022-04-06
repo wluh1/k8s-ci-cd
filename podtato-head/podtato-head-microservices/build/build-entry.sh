@@ -10,8 +10,8 @@ if [[ -e ${root_dir}/.env ]]; then
 fi
 
 # set version/tag for this build
-# source ${this_dir}/version.sh
-version=${VERSION:-"1.3"}
+source ./.config
+version=${VERSION:-"1.0"}
 echo "INFO: will use version/tag: ${version}"
 
 registry=europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head
@@ -22,6 +22,7 @@ echo "INFO: building container for ${IMAGE_NAME} as ${container_name}"
 docker build ${app_dir} \
     --tag "${container_name}:latest" \
     --tag "${container_name}:${version}" \
+		--build-arg "VERSION=${version}" \
     --file ${app_dir}/cmd/entry/Dockerfile
 if [[ -n "${PUSH_TO_REGISTRY}" ]]; then
 		docker push "${container_name}:latest"

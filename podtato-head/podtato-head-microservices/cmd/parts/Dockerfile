@@ -18,7 +18,12 @@ RUN go build -o /serve-${PART} ./cmd/parts
 EXPOSE 9000
 
 FROM scratch
+
+ARG VERSION="1.0"
+ENV PODTATO_VERSION=${VERSION}
+
 ARG PART
 ENV PART=${PART}
+
 COPY --from=builder /serve-${PART} /serve
 ENTRYPOINT ["/serve"]

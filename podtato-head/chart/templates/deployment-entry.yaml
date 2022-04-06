@@ -1,6 +1,6 @@
 {{ $componentName := "entry" }}
 {{ $repoBasename := .Values.entry.repositoryBasename }}
-{{ $repoTag := .Values.entry.tag }}
+{{ $repoTag := .Values.images.tag }}
 {{ $env := .Values.entry.env }}
 ---
 apiVersion: apps/v1

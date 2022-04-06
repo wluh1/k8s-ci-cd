@@ -3,7 +3,6 @@
 app_dir=./podtato-head-microservices
 registry=europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head
 
-
 build-microservices-images:
 	podtato-head-microservices/build/build.sh
 
@@ -21,6 +20,8 @@ uninstall:
 
 build-one:
 	podtato-head-microservices/build/build-one.sh
+
+push-all: push-entry push-body push-hat push-left-arm push-left-leg push-right-arm push-right-leg
 
 push-entry:
 	IMAGE_NAME=entry PUSH_TO_REGISTRY=1 podtato-head-microservices/build/build-entry.sh

@@ -7,11 +7,11 @@ images:
   repositoryDirname: europe-west1-docker.pkg.dev/k8s-ci-cd-1/podtato-head
   pullPolicy: IfNotPresent
   pullSecrets: []
+  tag: "1.4"
 
 # keep ports in sync with podtato-services/main/pkg/provider.go
 entry:
   repositoryBasename: entry
-  tag: "1.3"
   serviceType: LoadBalancer
   loadbalancerIP: 35.195.60.0
   servicePort: 9000
@@ -20,7 +20,6 @@ entry:
   #     value: "01"
 hat:
   repositoryBasename: hat
-  tag: "1.3"
   serviceType: ClusterIP
   servicePort: 9001
   env: []
@@ -28,7 +27,6 @@ hat:
   #     value: "01"
 leftLeg:
   repositoryBasename: left-leg
-  tag: "1.3"
   serviceType: ClusterIP
   servicePort: 9002
   env: []
@@ -36,7 +34,6 @@ leftLeg:
   #     value: "01"
 leftArm:
   repositoryBasename: left-arm
-  tag: "1.3"
   serviceType: ClusterIP
   servicePort: 9003
   env: []
@@ -44,7 +41,6 @@ leftArm:
   #     value: "01"
 rightLeg:
   repositoryBasename: right-leg
-  tag: "1.3"
   serviceType: ClusterIP
   servicePort: 9004
   env: []
@@ -52,7 +48,6 @@ rightLeg:
   #     value: "01"
 rightArm:
   repositoryBasename: right-arm
-  tag: "1.3"
   serviceType: ClusterIP
   servicePort: 9005
   env: []

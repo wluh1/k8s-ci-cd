@@ -1,6 +1,6 @@
 {{ $componentName := "right-arm" }}
 {{ $repoBasename := .Values.rightArm.repositoryBasename }}
-{{ $repoTag := .Values.rightArm.tag }}
+{{ $repoTag := .Values.images.tag }}
 {{ $env := .Values.rightArm.env }}
 ---
 apiVersion: apps/v1

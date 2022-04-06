@@ -1,6 +1,6 @@
 {{ $componentName := "hat" }}
 {{ $repoBasename := .Values.hat.repositoryBasename }}
-{{ $repoTag := .Values.hat.tag }}
+{{ $repoTag := .Values.images.tag }}
 {{ $env := .Values.hat.env }}
 ---
 apiVersion: apps/v1

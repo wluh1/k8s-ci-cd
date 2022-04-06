@@ -12,10 +12,10 @@ RUN go mod download
 COPY . .
 RUN go build -o entry ./cmd/entry
 
-
 FROM scratch
-ARG GITHUB_USER=podtato-head
-LABEL org.opencontainers.image.source = "https://github.com/${GITHUB_USER}/podtato-head"
+
+ARG VERSION="1.0"
+ENV PODTATO_VERSION=${VERSION}
 
 COPY --from=builder /build/entry /entry
 
