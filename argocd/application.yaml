@@ -7,9 +7,8 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/wluh1/k8s-ci-cd.git
+    repoURL: https://github.com/wluh1/k8s-ci-cd-conf.git
     targetRevision: HEAD
-    path: podtato-head/chart
   destination:
     server: https://kubernetes.default.svc
     namespace: default
