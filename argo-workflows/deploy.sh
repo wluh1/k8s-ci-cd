@@ -9,6 +9,7 @@ cd ..
 
 echo ""
 echo "Adding Roles for the Workflows Server"
+kubectl apply -f ./github-secret.yaml
 kubectl apply -f ./config/argo-server-roles.yaml
 kubectl apply -f ./config/executor-roles.yaml
 

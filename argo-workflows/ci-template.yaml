@@ -16,6 +16,10 @@ spec:
         value: https://github.com/wluh1/k8s-ci-cd.git
       - name: revision
         value: "HEAD"
+      - name: deploy-repo
+        value: https://github.com/wluh1/k8s-ci-cd-conf.git
+      - name: deploy-revision
+        value: "HEAD"
   volumeClaimTemplates:
     - metadata:
         name: workdir
@@ -60,6 +64,9 @@ spec:
             template: build-part
             arguments:
               parameters: [{ name: part, value: "right-leg" }]
+
+        - - name: bump-version
+            template: bump-version
 
     - name: checkout
       inputs:
@@ -111,3 +118,41 @@ spec:
           securityContext:
             privileged: true
           mirrorVolumeMounts: true
+
+    - name: bump-version
+      inputs:
+        artifacts:
+          - name: deploy-source
+            path: /deploy-src
+            git:
+              repo: https://github.com/wluh1/k8s-ci-cd-conf.git
+              revision: "HEAD"
+      container:
+        image: python:3.8
+        command: ["/bin/sh", "-c"]
+        args: [
+            '
+            cd /deploy-src;
+            git status;
+            ls -l;
+            pip install pyyaml;
+            python bump_version.py;
+            git config user.email "william.johansson98@gmail.com";
+            git config user.name "ArgoWorkflowsPipeline";
+            git status;
+            git add values.yaml;
+            git commit -m "bump-version";
+            git push https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/k8s-ci-cd-conf.git;
+            ',
+          ]
+        env:
+          - name: GITHUB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: github-creds
+                key: username
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-creds
+                key: token

@@ -9,6 +9,7 @@ spec:
   source:
     repoURL: https://github.com/wluh1/k8s-ci-cd-conf.git
     targetRevision: HEAD
+    path: ./
   destination:
     server: https://kubernetes.default.svc
     namespace: default
