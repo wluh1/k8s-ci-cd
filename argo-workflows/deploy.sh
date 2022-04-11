@@ -24,3 +24,7 @@ kubectl apply -f ./config/github-roles.yaml
 kubectl apply -f ./config/github-sa.yaml
 kubectl apply -f ./config/github-binding.yaml
 kubectl apply -f ./config/github-secret.yaml
+
+echo ""
+echo "Token for the ArgoUI:"
+argo auth token
