@@ -29,6 +29,7 @@ pipelines:
                       - -c
                       - gcloud auth configure-docker europe-west1-docker.pkg.dev
                       - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
+                      - kubectl get nodes
                       - helm upgrade --install podtato-head ./ --namespace default
                     command: /bin/bash
                     run_if: passed
