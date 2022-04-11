@@ -1,6 +1,7 @@
 format_version: 3
 pipelines:
   deploy_app:
+    group: deploy
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 1
