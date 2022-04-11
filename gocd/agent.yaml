@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-name-prefix-{{ POD_POSTFIX }}
+  labels:
+    app: web
+spec:
+  containers:
+    - name: gocd-agent-container-{{ CONTAINER_POSTFIX }}
+      image: quay.io/evl.ms/gcloud-helm:338.0.0
+      env:
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: secrets-for-gocd
+              key: K8S_API_TOKEN
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      securityContext:
+        privileged: true
