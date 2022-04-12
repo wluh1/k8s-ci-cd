@@ -91,9 +91,9 @@ steps:
     image: python:3.8
     environment:
       GITHUB_USERNAME:
-        from_secret: github-username
+        from_secret: GITHUB_USERNAME
       GITHUB_TOKEN:
-        from_secret: github-token
+        from_secret: GITHUB_TOKEN
     commands:
       - git clone https://github.com/wluh1/k8s-ci-cd-conf.git
       - cd k8s-ci-cd-conf
@@ -140,16 +140,3 @@ volumes:
   - name: dockersock
     temp: {}
 # #
----
-kind: secret
-name: github-username
-get:
-  path: drone/drone-secret
-  name: github-username
-
----
-kind: secret
-name: github-token
-get:
-  path: drone-secret
-  name: github-token
