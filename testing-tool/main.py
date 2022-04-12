@@ -35,7 +35,7 @@ def commit_change():
 
 
 def get_website():
-    requests.get(url)
+    a = requests.get(url)
 
 
 def main():
