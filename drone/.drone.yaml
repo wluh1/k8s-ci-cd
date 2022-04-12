@@ -102,8 +102,8 @@ steps:
       - git config user.email "william.johansson98@gmail.com"
       - git config user.name "DronePipeline"
       - git status
-      - echo "USERNAME: ${GITHUB_USERNAME}"
-      - echo "TOKEN: ${GITHUB_TOKEN}"
+      - echo "USERNAME:${GITHUB_USERNAME}"
+      - echo "TOKEN:${GITHUB_TOKEN}"
       - git add values.yaml
       - git commit -m "bump-version"
       - git push https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/k8s-ci-cd-conf.git
