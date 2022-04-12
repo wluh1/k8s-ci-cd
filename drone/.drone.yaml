@@ -9,7 +9,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-entry.sh
@@ -21,7 +21,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
@@ -33,7 +33,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
@@ -45,7 +45,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
@@ -57,7 +57,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
@@ -69,7 +69,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
@@ -81,7 +81,7 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
-      - sleep 5
+      - sleep 10
       - gcloud auth configure-docker europe-west1-docker.pkg.dev
       - cd podtato-head
       - chmod +x ./podtato-head-microservices/build/build-part.sh
