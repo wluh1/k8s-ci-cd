@@ -93,6 +93,9 @@ steps:
       - name: dockersock
         path: /var/run
     commands:
+      - git clone https://github.com/wluh1/k8s-ci-cd-conf.git
+      - cd k8s-ci-cd-conf
+      - git status
       - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
       - cd podtato-head
       - helm upgrade --install podtato-head ./chart --namespace default

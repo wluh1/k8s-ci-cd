@@ -2,6 +2,7 @@ cd terraform
 
 echo ""
 echo "Creating Cluster..."
+terraform init
 terraform apply -auto-approve
 
 echo ""
@@ -10,8 +11,9 @@ gcloud container clusters get-credentials $(terraform output -raw kubernetes_clu
 
 
 echo ""
-echo "Applying nignx-ingress and chaos-mesh..."
+echo "Applying nginx-ingress and chaos-mesh..."
 cd base
+terraform init
 terraform apply -auto-approve
 
 cd ../../
