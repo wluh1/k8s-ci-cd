@@ -97,6 +97,7 @@ steps:
       - cd k8s-ci-cd-conf
       - git status
       - gcloud container clusters get-credentials k8s-ci-cd-1-gke --zone europe-west1-b
+      - echo "Version:${VERSION}"
       - helm upgrade --install podtato-head ./ --namespace default
     # depends_on:
     #   - build-entry
