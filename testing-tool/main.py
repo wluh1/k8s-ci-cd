@@ -1,5 +1,8 @@
 import sys
 from git import Repo
+import requests
+
+url = "http://35.195.60.0:9000"
 
 new_version = ""
 
@@ -29,6 +32,10 @@ def commit_change():
 
     origin = repo.remote(name='origin')
     origin.push()
+
+
+def get_website():
+    requests.get(url)
 
 
 def main():
