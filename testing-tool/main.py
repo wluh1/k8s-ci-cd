@@ -1,10 +1,11 @@
 import sys
 from git import Repo
 import requests
+import re
 
 url = "http://35.195.60.0:9000"
 
-new_version = ""
+new_version = "1.15"
 
 
 def change_config_version():
@@ -34,18 +35,30 @@ def commit_change():
     origin.push()
 
 
-def get_website():
-    a = requests.get(url)
+def get_website_version():
+    try:
+        res = requests.get(url, timeout=2)
+    except:
+        return ""
+
+    m = re.search("Version ([0-9.]+) ", str(res.content))
+    if m:
+        found = m.group(1)
+        return found
+
+    return ''
 
 
 def main():
-    change_config_version()
+    # change_config_version()
 
-    commit_change()
+    # commit_change()
 
     # TODO: Start timer and check when the new version can be seen in the URL
 
+    website_version = get_website_version()
     print("NewV:", new_version)
+    print("Website:", website_version)
 
 
 main()
