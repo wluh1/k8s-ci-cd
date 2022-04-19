@@ -23,6 +23,8 @@ stringData:
   DRONE_RPC_SECRET: <some-random-secret>
 ```
 
+- Add Drone environment variables through the UI called GITHUB_USERNAME (containing the github username) and GITHUB_TOKEN (containing an access token to the github user).
+
 ## Deploy
 
 Run: `cd terraform && terraform apply`
