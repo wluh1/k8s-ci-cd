@@ -97,8 +97,8 @@ steps:
     commands:
       - git clone https://github.com/wluh1/k8s-ci-cd-conf.git
       - cd k8s-ci-cd-conf
-      - echo ${GITHUB_USERNAME}
-      - echo ${GITHUB_TOKEN}
+      - echo $${GITHUB_USERNAME}
+      - echo $${GITHUB_TOKEN}
       - pip install pyyaml
       - python bump_version.py
       - git config user.email "william.johansson98@gmail.com"
@@ -106,7 +106,7 @@ steps:
       - git status
       - git add values.yaml
       - git commit -m "bump-version"
-      - git push https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/k8s-ci-cd-conf.git
+      - git push https://$${GITHUB_TOKEN}@github.com/$${GITHUB_USERNAME}/k8s-ci-cd-conf.git
     depends_on:
       - build-entry
       - build-body
