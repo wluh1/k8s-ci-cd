@@ -17,7 +17,7 @@ stringData:
   token: <github_token>
 ```
 
-- Add webhook to github with a shared secret
+- Add webhook to github with a shared secret. The route should be: `http://<ingress-ip>/argo/api/v1/events/<namespace>/ci`
 
 
 ## Argo UI
