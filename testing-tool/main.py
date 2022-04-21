@@ -2,10 +2,11 @@ import sys
 from git import Repo
 import requests
 import re
+import time
 
 url = "http://35.195.60.0:9000"
 
-new_version = "1.15"
+new_version = None
 
 
 def change_config_version():
@@ -49,16 +50,46 @@ def get_website_version():
     return ''
 
 
+def fault_injection():
+    pass
+
+
+def scan_for_change():
+    start = time.time()
+    while (True):
+        
+
+        website_version = get_website_version()
+        if website_version == new_version:
+            print("Versions are correct")
+            return True
+
+        time.sleep(1)
+
+        elapsed_time = time.time() - start
+        if (elapsed_time > 10 * 60): # 10 Minutes
+            return False
+
+
+
 def main():
-    # change_config_version()
+    start = time.time()
 
-    # commit_change()
+    change_config_version()
+    if new_version == None:
+        print("Error: new_version not initialized")
+        exit(1)
 
-    # TODO: Start timer and check when the new version can be seen in the URL
+    commit_change()
 
-    website_version = get_website_version()
-    print("NewV:", new_version)
-    print("Website:", website_version)
+    success = scan_for_change()
+    end = time.time()
 
+    if success:
+        print("===SUCCESS===")
+        print ("Time elapsed:", int(end - start), "seconds")
+    else:
+        print("===FAILED===")
+        print("Timeout after", int(end - start), "seconds")
 
 main()
