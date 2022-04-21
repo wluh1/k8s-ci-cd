@@ -20,20 +20,10 @@ spec:
         value: https://github.com/wluh1/k8s-ci-cd-conf.git
       - name: deploy-revision
         value: "HEAD"
-  # volumeClaimTemplates:
-  #   - metadata:
-  #       name: workdir
-  #     spec:
-  #       accessModes: ["ReadOnlyMany"]
-  #       resources:
-  #         requests:
-  #           storage: 1Gi
 
   templates:
     - name: ci-start
       steps:
-        # - - name: checkout
-        #     template: checkout
 
         - - name: build-entry
             template: build-part
@@ -110,9 +100,6 @@ spec:
         env:
           - name: DOCKER_HOST
             value: 127.0.0.1
-        # volumeMounts:
-        #   - name: workdir
-        #     mountPath: /workdir
 
       sidecars:
         - name: dind
