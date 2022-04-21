@@ -20,20 +20,20 @@ spec:
         value: https://github.com/wluh1/k8s-ci-cd-conf.git
       - name: deploy-revision
         value: "HEAD"
-  volumeClaimTemplates:
-    - metadata:
-        name: workdir
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+  # volumeClaimTemplates:
+  #   - metadata:
+  #       name: workdir
+  #     spec:
+  #       accessModes: ["ReadOnlyMany"]
+  #       resources:
+  #         requests:
+  #           storage: 1Gi
 
   templates:
     - name: ci-start
       steps:
-        - - name: checkout
-            template: checkout
+        # - - name: checkout
+        #     template: checkout
 
         - - name: build-entry
             template: build-part
@@ -86,6 +86,12 @@ spec:
 
     - name: build-part
       inputs:
+        artifacts:
+          - name: source
+            path: /workdir/src
+            git:
+              repo: "{{workflow.parameters.repo}}"
+              revision: "{{workflow.parameters.revision}}"
         parameters:
           - name: part
       container:
@@ -104,9 +110,9 @@ spec:
         env:
           - name: DOCKER_HOST
             value: 127.0.0.1
-        volumeMounts:
-          - name: workdir
-            mountPath: /workdir
+        # volumeMounts:
+        #   - name: workdir
+        #     mountPath: /workdir
 
       sidecars:
         - name: dind

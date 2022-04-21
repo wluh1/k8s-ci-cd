@@ -9,7 +9,7 @@ cd ..
 
 echo ""
 echo "Adding Roles for the Workflows Server"
-kubectl apply -f ./github-secret.yaml
+kubectl apply -f ./config/github-secret.yaml
 kubectl apply -f ./config/argo-server-roles.yaml
 kubectl apply -f ./config/executor-roles.yaml
 
@@ -23,7 +23,6 @@ echo "Setting up webhooks..."
 kubectl apply -f ./config/github-roles.yaml
 kubectl apply -f ./config/github-sa.yaml
 kubectl apply -f ./config/github-binding.yaml
-kubectl apply -f ./config/github-secret.yaml
 
 echo ""
 echo "Token for the ArgoUI:"
