@@ -10,6 +10,7 @@ new_version = None
 
 
 def change_config_version():
+    print("Changing version...")
     global new_version
     with open("../podtato-head/.config", "r+") as f:
         lines = f.readlines()
@@ -27,6 +28,7 @@ def change_config_version():
 
 
 def commit_change():
+    print("Committing version change...")
     repo = Repo("../")
     repo.git.add("./podtato-head/.config")
 
@@ -55,19 +57,26 @@ def fault_injection():
 
 
 def scan_for_change():
+    print("Scanning for update...")
+    print("")
+    i = 1
     start = time.time()
     while (True):
         
 
         website_version = get_website_version()
         if website_version == new_version:
-            print("Versions are correct")
             return True
+
+        print("New_Version:", new_version, "Website_Version:", website_version, '.' * i, ' ' * (3 - i), end="\r")
+        i += 1
+        if i == 4:
+            i = 1
 
         time.sleep(1)
 
         elapsed_time = time.time() - start
-        if (elapsed_time > 10 * 60): # 10 Minutes
+        if (elapsed_time > 15 * 60): # 10 Minutes
             return False
 
 
@@ -79,10 +88,12 @@ def main():
     if new_version == None:
         print("Error: new_version not initialized")
         exit(1)
+    print("New Version:", new_version)
 
     commit_change()
 
     success = scan_for_change()
+    print("")
     end = time.time()
 
     if success:
