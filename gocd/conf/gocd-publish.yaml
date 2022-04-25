@@ -5,7 +5,6 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 1
-    environment_variables:
     materials:
       git:
         git: https://github.com/wluh1/k8s-ci-cd-conf.git
