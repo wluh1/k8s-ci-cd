@@ -1,3 +1,4 @@
+import os
 import sys
 from git import Repo
 import requests
@@ -7,6 +8,10 @@ import time
 url = "http://35.195.60.0:9000"
 
 new_version = None
+
+fault_delay = 60 * 2 # 2 minutes
+
+fault_function = None
 
 
 def change_config_version():
@@ -52,8 +57,31 @@ def get_website_version():
     return ''
 
 
-def fault_injection():
-    pass
+def drone_fault():
+    print("Injecting Drone fault...")
+    os.system('kubectl apply -f ./chaos-mesh/drone-pod.yaml')
+
+def argo_fault():
+    print("Injecting Argo fault...")
+    os.system('kubectl apply -f ./chaos-mesh/argo-workflow-pod.yaml')
+
+def argocd_fault():
+    print("Injecting Drone fault...")
+    os.system('kubectl apply -f ./chaos-mesh/drone-pod.yaml')
+
+def gocd_fault():
+    print("Injecting GoCD fault...")
+    os.system('kubectl apply -f ./chaos-mesh/gocd-pod.yaml')
+
+def fault_injection(start):
+    if fault_function == None:
+        return
+
+    elapsed_time = time.time() - start
+    if elapsed_time > fault_delay:
+        fault_function()
+        fault_function = None
+
 
 
 def scan_for_change():
@@ -62,7 +90,7 @@ def scan_for_change():
     i = 1
     start = time.time()
     while (True):
-        
+        fault_injection(start)
 
         website_version = get_website_version()
         if website_version == new_version:
@@ -79,28 +107,50 @@ def scan_for_change():
         if (elapsed_time > 15 * 60): # 10 Minutes
             return False
 
+def parse_command():
+    global fault_function
 
+    if len(sys.argv) > 2:
+        print("Error, must take 0 or 1 command line parameters")
+
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "-drone-fault":
+            fault_function = drone_fault
+        elif sys.argv[1] == "-argocd-fault":
+            fault_function = argocd_fault
+        elif sys.argv[1] == "-argo-fault":
+            fault_function = argo_fault
+        elif sys.argv[1] == "-gocd-fault":
+            fault_function = gocd_fault
+        else:
+            print("Invalid command:", sys.argv[1])
+            exit(1)
 
 def main():
-    start = time.time()
+    
+    parse_command()
 
-    change_config_version()
-    if new_version == None:
-        print("Error: new_version not initialized")
-        exit(1)
-    print("New Version:", new_version)
+    fault_function()
 
-    commit_change()
+    # start = time.time()
 
-    success = scan_for_change()
-    print("")
-    end = time.time()
+    # change_config_version()
+    # if new_version == None:
+    #     print("Error: new_version not initialized")
+    #     exit(1)
+    # print("New Version:", new_version)
 
-    if success:
-        print("===SUCCESS===")
-        print ("Time elapsed:", int(end - start), "seconds")
-    else:
-        print("===FAILED===")
-        print("Timeout after", int(end - start), "seconds")
+    # commit_change()
+
+    # success = scan_for_change()
+    # print("")
+    # end = time.time()
+
+    # if success:
+    #     print("===SUCCESS===")
+    #     print ("Time elapsed:", int(end - start), "seconds")
+    # else:
+    #     print("===FAILED===")
+    #     print("Timeout after", int(end - start), "seconds")
 
 main()

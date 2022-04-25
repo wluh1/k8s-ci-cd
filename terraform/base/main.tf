@@ -1,8 +1,14 @@
+resource "kubernetes_namespace" "chaos-testing" {
+  metadata {
+    name = "chaos-testing"
+  }
+}
 
-
-module "chaosmesh" {
-  source  = "3191110276/chaosmesh/kubernetes"
-  version = "0.1.5"
+resource "helm_release" "chaosmesh" {
+  name       = "chaos-mesh"
+  repository = "https://charts.chaos-mesh.org"
+  chart      = "chaos-mesh"
+  namespace  = kubernetes_namespace.chaos-testing.metadata[0].name
 }
 
 resource "kubernetes_namespace" "nginx" {
