@@ -2,13 +2,13 @@ kind: PodChaos
 apiVersion: chaos-mesh.org/v1alpha1
 metadata:
   namespace: argo
-  name: argo-pod-failure-5
+  name: argo-pod-failure-6
 spec:
   selector:
     namespaces:
       - argo
     labelSelectors:
-      workflows.argoproj.io/completed: 'false'
+      workflows.argoproj.io/completed: false
   mode: one
   action: pod-kill
   gracePeriod: 0

@@ -10,7 +10,7 @@ url = "http://35.195.60.0:9000"
 
 new_version = None
 
-fault_delay = 60 # seconds
+fault_delay = 45 # seconds
 
 inject_faults = False
 
