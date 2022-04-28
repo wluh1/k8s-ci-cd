@@ -4,14 +4,15 @@ from git import Repo
 import requests
 import re
 import time
+import datetime
 
 url = "http://35.195.60.0:9000"
 
 new_version = None
 
-fault_delay = 60 * 2 # 2 minutes
+fault_delay = 60 # seconds
 
-fault_function = None
+inject_faults = False
 
 
 def change_config_version():
@@ -57,31 +58,37 @@ def get_website_version():
     return ''
 
 
-def drone_fault():
-    print("Injecting Drone fault...")
-    os.system('kubectl apply -f ./chaos-mesh/drone-pod.yaml')
+def perform_fault_injection():
+    for i, com in enumerate(sys.argv):
+        if i == 0:
+            continue
 
-def argo_fault():
-    print("Injecting Argo fault...")
-    os.system('kubectl apply -f ./chaos-mesh/argo-workflow-pod.yaml')
+        if com == "-drone-fault":
+            print("Injecting Drone fault...", " " * 25)
+            os.system('kubectl apply -f ./chaos-mesh/drone-pod.yaml')
+        elif com == "-argocd-fault":
+            print("Injecting ArgoCD fault...", " " * 25)
+            os.system('kubectl apply -f ./chaos-mesh/argocd-pod.yaml')
+        elif com == "-argo-fault":
+            print("Injecting Argo fault...", " " * 25)
+            os.system('kubectl apply -f ./chaos-mesh/argo-workflow-pod.yaml')
+        elif com == "-gocd-fault":
+            print("Injecting GoCD fault...", " " * 25)
+            os.system('kubectl apply -f ./chaos-mesh/gocd-pod.yaml')
+        else:
+            print("Unknown command:", com)
+            exit(1)
 
-def argocd_fault():
-    print("Injecting Drone fault...")
-    os.system('kubectl apply -f ./chaos-mesh/drone-pod.yaml')
-
-def gocd_fault():
-    print("Injecting GoCD fault...")
-    os.system('kubectl apply -f ./chaos-mesh/gocd-pod.yaml')
 
 def fault_injection(start):
-    if fault_function == None:
+    global inject_faults
+    if not inject_faults:
         return
 
     elapsed_time = time.time() - start
     if elapsed_time > fault_delay:
-        fault_function()
-        fault_function = None
-
+        perform_fault_injection()
+        inject_faults = False
 
 
 def scan_for_change():
@@ -96,7 +103,8 @@ def scan_for_change():
         if website_version == new_version:
             return True
 
-        print("New_Version:", new_version, "Website_Version:", website_version, '.' * i, ' ' * (3 - i), end="\r")
+        curr_time_arr = re.split(':|\.', str(datetime.timedelta(seconds=time.time() - start)))
+        print("New_Version:", new_version, "Website_Version:", website_version, "|", ":".join(curr_time_arr[1:-1]), end="\r")
         i += 1
         if i == 4:
             i = 1
@@ -108,49 +116,43 @@ def scan_for_change():
             return False
 
 def parse_command():
-    global fault_function
+    global inject_faults
 
-    if len(sys.argv) > 2:
-        print("Error, must take 0 or 1 command line parameters")
+    if len(sys.argv) > 3:
+        print("Error, must take 0, 1 or 2 command line parameters")
 
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-drone-fault":
-            fault_function = drone_fault
-        elif sys.argv[1] == "-argocd-fault":
-            fault_function = argocd_fault
-        elif sys.argv[1] == "-argo-fault":
-            fault_function = argo_fault
-        elif sys.argv[1] == "-gocd-fault":
-            fault_function = gocd_fault
-        else:
-            print("Invalid command:", sys.argv[1])
+    validCommands = ["-drone-fault", "-argocd-fault", "-argo-fault", "-gocd-fault"]
+    for i in range(1, len(sys.argv)):
+        inject_faults = True
+
+        if not sys.argv[i] in validCommands:
+            print("Invalid command: ", sys.argv[i])
+            print("Valid commands:", validCommands)
             exit(1)
 
+
 def main():
-    
     parse_command()
 
-    fault_function()
+    start = time.time()
 
-    # start = time.time()
+    change_config_version()
+    if new_version == None:
+        print("Error: new_version not initialized")
+        exit(1)
+    print("New Version:", new_version)
 
-    # change_config_version()
-    # if new_version == None:
-    #     print("Error: new_version not initialized")
-    #     exit(1)
-    # print("New Version:", new_version)
+    commit_change()
 
-    # commit_change()
+    success = scan_for_change()
+    print("")
+    end = time.time()
 
-    # success = scan_for_change()
-    # print("")
-    # end = time.time()
-
-    # if success:
-    #     print("===SUCCESS===")
-    #     print ("Time elapsed:", int(end - start), "seconds")
-    # else:
-    #     print("===FAILED===")
-    #     print("Timeout after", int(end - start), "seconds")
+    if success:
+        print("===SUCCESS===")
+        print ("Time elapsed:", int(end - start), "seconds")
+    else:
+        print("===FAILED===")
+        print("Timeout after", int(end - start), "seconds")
 
 main()

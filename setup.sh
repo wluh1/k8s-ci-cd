@@ -15,5 +15,6 @@ echo "Applying nginx-ingress and chaos-mesh..."
 cd base
 terraform init
 terraform apply -auto-approve
+kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io validate-auth
 
 cd ../../

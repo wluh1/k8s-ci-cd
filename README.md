@@ -1,5 +1,5 @@
 # k8s-ci-cd
 
-## Chaos-mesh
+## Chaos-mesh dashboard
 
-`kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io validate-auth`
+`kubectl port-forward -n chaos-testing svc/chaos-dashboard 2333:2333`

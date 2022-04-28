@@ -1,0 +1,16 @@
+kind: PodChaos
+apiVersion: chaos-mesh.org/v1alpha1
+metadata:
+  namespace: gocd
+  name: gocd-pod-failure-3
+spec:
+  selector:
+    namespaces:
+      - gocd
+    labelSelectors:
+      # app: gocd
+      # component: server
+      Elastic-Agent-Created-By: cd.go.contrib.elasticagent.kubernetes
+  mode: one
+  action: pod-kill
+  gracePeriod: 0
