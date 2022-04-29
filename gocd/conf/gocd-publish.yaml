@@ -9,7 +9,8 @@ pipelines:
       git:
         git: https://github.com/wluh1/k8s-ci-cd-conf.git
         shallow_clone: true
-        auto_update: true
+        # auto_update: true
+        webhookSecret: gocd-secret
         branch: main
     stages:
       - deploy_app:
