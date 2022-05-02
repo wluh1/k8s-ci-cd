@@ -10,7 +10,7 @@ url = "http://35.195.60.0:9000"
 
 new_version = None
 
-fault_delay = 45 # seconds
+fault_delay = 60 # seconds
 
 inject_faults = False
 
@@ -94,8 +94,8 @@ def fault_injection(start):
 def scan_for_change():
     print("Scanning for update...")
     print("")
-    i = 1
     start = time.time()
+    
     while (True):
         fault_injection(start)
 
@@ -104,10 +104,7 @@ def scan_for_change():
             return True
 
         curr_time_arr = re.split(':|\.', str(datetime.timedelta(seconds=time.time() - start)))
-        print("New_Version:", new_version, "Website_Version:", website_version, "|", ":".join(curr_time_arr[1:-1]), end="\r")
-        i += 1
-        if i == 4:
-            i = 1
+        print("New_Version:", new_version, "Website_Version:", website_version, "|", ":".join(curr_time_arr[1:-1]), " " * 10, end="\r")
 
         time.sleep(1)
 

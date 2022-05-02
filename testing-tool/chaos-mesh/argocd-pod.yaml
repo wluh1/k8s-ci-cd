@@ -8,8 +8,9 @@ spec:
     namespaces:
       - argocd
     labelSelectors:
-      app.kubernetes.io/component: server
-      app.kubernetes.io/instance: argocd
+      statefulset.kubernetes.io/pod-name: argocd-application-controller-0
+      # app.kubernetes.io/component: server
+      # app.kubernetes.io/instance: argocd
   mode: one
   action: pod-kill
   gracePeriod: 0
