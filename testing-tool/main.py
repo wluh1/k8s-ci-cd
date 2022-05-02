@@ -10,6 +10,8 @@ url = "http://35.195.60.0:9000"
 
 new_version = None
 
+timeout = 15 # Minutes
+
 fault_delay = 60 # seconds
 
 inject_faults = False
@@ -95,7 +97,7 @@ def scan_for_change():
     print("Scanning for update...")
     print("")
     start = time.time()
-    
+
     while (True):
         fault_injection(start)
 
@@ -109,7 +111,7 @@ def scan_for_change():
         time.sleep(1)
 
         elapsed_time = time.time() - start
-        if (elapsed_time > 15 * 60): # 10 Minutes
+        if (elapsed_time > timeout * 60):
             return False
 
 def parse_command():

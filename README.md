@@ -9,5 +9,5 @@
 - Argo: Done (Confirmed)
 - ArgoCD: Done (Confirmed)
 - GoCD: Done (To be confirmed)
-- Drone: Maybe Done
+- Drone: Done (Confirmed)
 - JenkinsX: Not Done
