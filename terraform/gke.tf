@@ -9,7 +9,7 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 6
+  default     = 4
   description = "number of gke nodes"
 }
 
@@ -50,7 +50,8 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = "n2-standard-2"
+    min_cpu_platform = "Intel Cascade Lake"
     tags         = ["gke-node", "${var.project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
